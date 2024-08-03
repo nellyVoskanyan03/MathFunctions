@@ -9,6 +9,9 @@ class Function:
     def derivative(self):
         raise NotImplementedError('Function is not fully implemented')
 
+    def __str__(self, x='x'):
+        raise NotImplementedError('Function is not fully implemented')
+
     def __add__(self, other):
         raise NotImplementedError('Function is not fully implemented')
 

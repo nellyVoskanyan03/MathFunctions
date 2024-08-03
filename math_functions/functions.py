@@ -11,6 +11,9 @@ class Sin(Function):
     def derivative(self):
         return Cos()
 
+    def __str__(self, x='x'):
+        return f'sin({str(x)})'
+
     def __add__(self, other):
         return Operations.add(self, other)
 
@@ -34,6 +37,9 @@ class Cos(Function):
 
     def derivative(self):
         return Polynomial(0, -1).combine(Sin())
+
+    def __str__(self, x='x'):
+        return f'cos({str(x)})'
 
     def __add__(self, other):
         return Operations.add(self, other)
@@ -70,6 +76,14 @@ class Polynomial(Function):
 
         return Polynomial(*result_coefficients[1:])
 
+    def __str__(self, x='x'):
+        polynomial_str = ''
+
+        for i, coefficient in enumerate(self.coefficients):
+            polynomial_str += f'{coefficient} * {str(x)}^{i} + '
+
+        return polynomial_str[:len(polynomial_str)-3]
+
     def __add__(self, other):
         if type(self) is type(other):
             result_coefficients = []
@@ -80,8 +94,8 @@ class Polynomial(Function):
             if len(self.coefficients) != len(other.coefficients):
                 min_len = max(len(self.coefficients), len(other.coefficients))
 
-                result_coefficients.extend(self.coefficients[min_len-1:])
-                result_coefficients.extend(other.coefficients[min_len-1:])
+                result_coefficients.extend(self.coefficients[min_len:])
+                result_coefficients.extend(other.coefficients[min_len:])
 
             return Polynomial(*result_coefficients)
         else:
@@ -96,9 +110,10 @@ class Polynomial(Function):
 
             if len(self.coefficients) != len(other.coefficients):
                 min_len = min(len(self.coefficients), len(other.coefficients))
-
+                # todo ete hanelina erkar nshannery piti poxven
                 result_coefficients.extend(self.coefficients[min_len:])
-                result_coefficients.extend(other.coefficients[min_len:])
+                result_coefficients.extend(
+                    [-1*x for x in other.coefficients[min_len:]])
 
             return Polynomial(*result_coefficients)
         else:

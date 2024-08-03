@@ -31,6 +31,9 @@ class CombinedFunction(Function):
     def derivative(self):
         return self.f.derivative().combine(self.g) * self.g.derivative()
 
+    def __str__(self):
+        return self.f.__str__(self.g.__str__())
+
     def __add__(self, other):
         return Operations.add(self, other)
 
@@ -48,6 +51,8 @@ class CombinedFunction(Function):
 
 
 class SumFunction(CombinedFunction):
+    def __str__(self):
+        return f'({str(self.f)}) + ({str(self.g)})'
 
     def value(self, x):
         return self.f.value(x) + self.g.value(x)
@@ -57,6 +62,8 @@ class SumFunction(CombinedFunction):
 
 
 class SubFunction(CombinedFunction):
+    def __str__(self):
+        return f'({str(self.f)}) - ({str(self.g)})'
 
     def value(self, x):
         return self.f.value(x) - self.g.value(x)
@@ -66,6 +73,8 @@ class SubFunction(CombinedFunction):
 
 
 class MulFunction(CombinedFunction):
+    def __str__(self):
+        return f'({str(self.f)}) * ({str(self.g)})'
 
     def value(self, x):
         return self.f.value(x) * self.g.value(x)
@@ -75,9 +84,15 @@ class MulFunction(CombinedFunction):
 
 
 class DivFunction(CombinedFunction):
+    def __str__(self):
+        return f'({str(self.f)}) / ({str(self.g)})'
 
     def value(self, x):
-        return self.f.value(x) / self.g.value(x)
+        if self.g.value(x) == 0:
+            raise ZeroDivisionError(
+                f'Value of divisor function for x = {x} is 0')
+        else:
+            return self.f.value(x) / self.g.value(x)
 
     def derivative(self):
         return (self.f.derivative() * self.g - self.f * self.g.derivative()) / (self.g * self.g)

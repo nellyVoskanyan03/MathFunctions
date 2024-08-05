@@ -2,19 +2,23 @@ from .function import Function
 
 
 class Operations:
-
+    @staticmethod
     def add(operand1, operand2):
         return SumFunction(operand1, operand2)
 
+    @staticmethod
     def sub(operand1, operand2):
         return SubFunction(operand1, operand2)
 
+    @staticmethod
     def mul(operand1, operand2):
         return MulFunction(operand1, operand2)
 
+    @staticmethod
     def truediv(operand1, operand2):
         return DivFunction(operand1, operand2)
 
+    @staticmethod
     def combine(operand1, operand2):
         return CombinedFunction(operand1, operand2)
 
@@ -32,7 +36,7 @@ class CombinedFunction(Function):
         return self.f.derivative().combine(self.g) * self.g.derivative()
 
     def __str__(self):
-        return self.f.__str__(self.g.__str__())
+        return self.f.to_string(self.g)
 
     def __add__(self, other):
         return Operations.add(self, other)

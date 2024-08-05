@@ -1,28 +1,39 @@
-class Function:
+from abc import ABC, abstractmethod
+
+
+class Function(ABC):
 
     def __call__(self, x):
         return self.value(x)
 
+    @abstractmethod
     def value(self, x):
-        raise NotImplementedError('Function is not fully implemented')
+        pass
 
+    @abstractmethod
     def derivative(self):
-        raise NotImplementedError('Function is not fully implemented')
+        pass
 
-    def __str__(self, x='x'):
-        raise NotImplementedError('Function is not fully implemented')
+    @abstractmethod
+    def __str__(self):
+        pass
 
+    @abstractmethod
     def __add__(self, other):
-        raise NotImplementedError('Function is not fully implemented')
+        pass
 
+    @abstractmethod
     def __sub__(self, other):
-        raise NotImplementedError('Function is not fully implemented')
+        pass
 
+    @abstractmethod
     def __mul__(self, other):
-        raise NotImplementedError('Function is not fully implemented')
+        pass
 
+    @abstractmethod
     def __truediv__(self, other):
-        raise NotImplementedError('Function is not fully implemented')
+        pass
 
-    def apply(self, other):
-        raise NotImplementedError('Function is not fully implemented')
+    @abstractmethod
+    def combine(self, other):
+        pass

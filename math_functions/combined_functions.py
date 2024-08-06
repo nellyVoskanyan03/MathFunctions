@@ -35,8 +35,8 @@ class CombinedFunction(Function):
     def derivative(self):
         return self.f.derivative().combine(self.g) * self.g.derivative()
 
-    def __str__(self):
-        return self.f.to_string(self.g)
+    def _to_string(self):
+        return self.f._to_string(self.g)
 
     def __add__(self, other):
         return Operations.add(self, other)
@@ -55,7 +55,7 @@ class CombinedFunction(Function):
 
 
 class SumFunction(CombinedFunction):
-    def __str__(self):
+    def _to_string(self):
         return f'({str(self.f)}) + ({str(self.g)})'
 
     def value(self, x):
@@ -66,7 +66,7 @@ class SumFunction(CombinedFunction):
 
 
 class SubFunction(CombinedFunction):
-    def __str__(self):
+    def _to_string(self):
         return f'({str(self.f)}) - ({str(self.g)})'
 
     def value(self, x):
@@ -77,7 +77,7 @@ class SubFunction(CombinedFunction):
 
 
 class MulFunction(CombinedFunction):
-    def __str__(self):
+    def _to_string(self):
         return f'({str(self.f)}) * ({str(self.g)})'
 
     def value(self, x):
@@ -88,7 +88,7 @@ class MulFunction(CombinedFunction):
 
 
 class DivFunction(CombinedFunction):
-    def __str__(self):
+    def _to_string(self):
         return f'({str(self.f)}) / ({str(self.g)})'
 
     def value(self, x):

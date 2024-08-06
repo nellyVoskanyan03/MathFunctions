@@ -12,11 +12,8 @@ class Sin(Function):
     def derivative(self):
         return Cos()
 
-    def to_string(self, x='x'):
+    def _to_string(self, x='x'):
         return f'sin({str(x)})'
-
-    def __str__(self):
-        return self.to_string()
 
     def __add__(self, other):
         return Operations.add(self, other)
@@ -42,11 +39,8 @@ class Cos(Function):
     def derivative(self):
         return Polynomial(0, -1).combine(Sin())
 
-    def to_string(slef, x='x'):
+    def _to_string(slef, x='x'):
         return f'cos({str(x)})'
-
-    def __str__(self):
-        return self.to_string()
 
     def __add__(self, other):
         return Operations.add(self, other)
@@ -89,16 +83,13 @@ class Polynomial(Function):
 
         return Polynomial(result_members)
 
-    def to_string(self, x='x'):
+    def _to_string(self, x='x'):
         polynomial_str = ''
-        
+
         for degere, coefficient in self.members.items():
             polynomial_str += f'{coefficient} * {str(x)}^{degere} + '
 
         return polynomial_str[:len(polynomial_str)-3]
-
-    def __str__(self):
-        return self.to_string()
 
     def __add__(self, other):
         if type(self) is type(other):

@@ -6,6 +6,9 @@ class Function(ABC):
     def __call__(self, x):
         return self.value(x)
 
+    def __str__(self):
+        return self._to_string()
+
     @abstractmethod
     def value(self, x):
         pass
@@ -15,7 +18,7 @@ class Function(ABC):
         pass
 
     @abstractmethod
-    def __str__(self):
+    def _to_string(self):
         pass
 
     @abstractmethod

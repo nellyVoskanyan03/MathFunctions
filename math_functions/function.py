@@ -14,29 +14,29 @@ class Function(ABC):
         pass
 
     @abstractmethod
-    def derivative(self):
+    def derivative(self) -> 'Function':
         pass
 
     @abstractmethod
-    def _to_string(self):
+    def _to_string(self) -> str:
         pass
 
     @abstractmethod
-    def __add__(self, other):
+    def __add__(self, other: 'Function') -> 'Function':
         pass
 
     @abstractmethod
-    def __sub__(self, other):
+    def __sub__(self, other: 'Function') -> 'Function':
         pass
 
     @abstractmethod
-    def __mul__(self, other):
+    def __mul__(self, other: 'Function') -> 'Function':
         pass
 
     @abstractmethod
-    def __truediv__(self, other):
+    def __truediv__(self, other: 'Function') -> 'Function':
         pass
 
     @abstractmethod
-    def combine(self, other):
+    def combine(self, other: 'Function') -> 'Function':
         pass

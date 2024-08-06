@@ -1,15 +1,16 @@
 import math
 from .function import Function
-from .combined_functions import Operations
+from .combined_functions import Operations, SumFunction, SubFunction, MulFunction
 from collections import defaultdict
+from typing import Union
 
 
 class Sin(Function):
 
-    def value(self, x):
+    def value(self, x) -> float:
         return math.sin(x)
 
-    def derivative(self):
+    def derivative(self) -> 'Cos':
         return Cos()
 
     def _to_string(self, x='x'):
@@ -33,7 +34,7 @@ class Sin(Function):
 
 class Cos(Function):
 
-    def value(self, x):
+    def value(self, x) -> float:
         return math.cos(x)
 
     def derivative(self):
@@ -67,14 +68,14 @@ class Polynomial(Function):
             self.members = {i: args[i]
                             for i in range(len(args))}
 
-    def value(self, x):
+    def value(self, x) -> float:
         value = 0
         for degree, coefficient in self.members.items():
             value += coefficient * (x ** degree)
 
         return value
 
-    def derivative(self):
+    def derivative(self) -> 'Polynomial':
         result_members = {}
         for degree, coefficient in self.members.items():
             if degree == 0:
@@ -91,7 +92,7 @@ class Polynomial(Function):
 
         return polynomial_str[:len(polynomial_str)-3]
 
-    def __add__(self, other):
+    def __add__(self, other) -> Union['Polynomial', SumFunction]:
         if type(self) is type(other):
             result_members = defaultdict(lambda: 0, self.members)
 
@@ -102,7 +103,7 @@ class Polynomial(Function):
         else:
             return Operations.add(self, other)
 
-    def __sub__(self, other):
+    def __sub__(self, other) -> Union['Polynomial', SubFunction]:
         if type(self) is type(other):
             result_members = defaultdict(lambda: 0, self.members)
 
@@ -113,7 +114,7 @@ class Polynomial(Function):
         else:
             return Operations.sub(self, other)
 
-    def __mul__(self, other):
+    def __mul__(self, other) -> Union['Polynomial', MulFunction]:
         if type(self) is type(other):
             result_members = defaultdict(lambda: 0)
 
